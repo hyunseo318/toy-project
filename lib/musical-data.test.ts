@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 
-import { getDateKeysWithPerformances, getPerformancesByDate } from "@/lib/musical-data";
+import {
+  getAllShowPosters,
+  getDateKeysWithPerformances,
+  getPerformancesByDate,
+} from "@/lib/musical-data";
 
 describe("getPerformancesByDate", () => {
   it("여러 공연이 겹치는 날짜에는 그날 공연 중인 뮤지컬을 모두 반환한다", () => {
@@ -62,6 +66,18 @@ describe("getPerformancesByDate", () => {
 
   it("공연이 없는 날짜는 빈 배열을 반환한다", () => {
     expect(getPerformancesByDate("2099-01-01")).toEqual([]);
+  });
+});
+
+describe("getAllShowPosters", () => {
+  it("날짜와 무관하게 상영 중인 모든 뮤지컬의 포스터 정보를 반환한다", () => {
+    const posters = getAllShowPosters();
+
+    expect(posters).toHaveLength(8);
+    expect(posters.map((poster) => poster.title)).toContain("겨울왕국 한국초연");
+    for (const poster of posters) {
+      expect(poster.posterSrc).toMatch(/^https:\/\/ticketimage\.interpark\.com\//);
+    }
   });
 });
 

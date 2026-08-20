@@ -128,3 +128,27 @@
     @apply font-sans;
   }
 }
+
+@keyframes poster-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    /* 트랙이 포스터 두 벌이라, 절반만 이동하면 한 벌 폭만큼 흐른 것과 같다. */
+    transform: translateX(-50%);
+  }
+}
+
+.animate-poster-marquee {
+  animation: poster-marquee 28s linear infinite;
+}
+
+.animate-poster-marquee:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-poster-marquee {
+    animation: none;
+  }
+}
