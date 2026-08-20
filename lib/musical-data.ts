@@ -449,3 +449,17 @@ export function getPerformancesByDate(dateKey: string): Performance[] {
 export function getDateKeysWithPerformances(): Set<string> {
   return new Set(Object.keys(SHOWTIMES_BY_DATE));
 }
+
+export type ShowPoster = {
+  title: string;
+  posterSrc: string;
+  posterAlt: string;
+};
+
+/** 현재 상영 중인 뮤지컬의 포스터만 뽑아, 날짜와 무관하게 죽 늘어놓고 싶을 때 쓴다. */
+export function getAllShowPosters(): ShowPoster[] {
+  return SHOW_IDS.map((showId) => {
+    const { title, posterSrc, posterAlt } = SHOW_META[showId];
+    return { title, posterSrc, posterAlt };
+  });
+}

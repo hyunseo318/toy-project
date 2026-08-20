@@ -4,6 +4,7 @@ import { useState, useSyncExternalStore } from "react";
 
 import { CalendarPicker } from "@/components/calendar-picker";
 import { MusicalList } from "@/components/musical-list";
+import { PosterMarquee } from "@/components/poster-marquee";
 import { VenueFilter } from "@/components/venue-filter";
 import { parseDateKey, toDateKey } from "@/lib/date";
 import {
@@ -74,6 +75,9 @@ export function MusicalFinder() {
       <p className="mt-1 text-sm text-muted-foreground">
         날짜를 선택하면 그날 볼 수 있는 뮤지컬을 예매처와 함께 모아 보여줍니다.
       </p>
+      <div className="mt-4">
+        <PosterMarquee />
+      </div>
     </div>
   );
 
