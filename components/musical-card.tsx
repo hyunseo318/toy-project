@@ -1,9 +1,6 @@
-"use client";
-
-import { useState } from "react";
 import Image from "next/image";
 
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import type { Performance } from "@/lib/musical-data";
 import { cn } from "@/lib/utils";
 
@@ -12,18 +9,10 @@ type MusicalCardProps = {
 };
 
 /**
- * 예매처는 한 번에 하나만 선택할 수 있다. 잔여석은 선택한 예매처의 값만 보여주고,
- * 다른 예매처를 선택하기 전까지는 나타나지 않는다(스펙의 관찰 가능한 수용 기준).
+ * 예매처 잔여석은 실제 플랫폼과 실시간으로 맞춰줄 방법이 없어 아예 보여주지
+ * 않는다. 대신 예매처를 누르면 그 예매처의 실제 예매 페이지로 바로 연결한다.
  */
 export function MusicalCard({ performance }: MusicalCardProps) {
-  const [selectedVendorName, setSelectedVendorName] = useState<string | null>(null);
-  const selectedVendor =
-    performance.vendors.find((vendor) => vendor.name === selectedVendorName) ?? null;
-
-  function toggleVendor(vendorName: string) {
-    setSelectedVendorName((current) => (current === vendorName ? null : vendorName));
-  }
-
   return (
     <article className="flex gap-4 rounded-lg border border-border p-4">
       <Image
@@ -48,37 +37,17 @@ export function MusicalCard({ performance }: MusicalCardProps) {
 
         <div className="mt-1 flex flex-wrap gap-2" role="group" aria-label={`${performance.title} 예매처`}>
           {performance.vendors.map((vendor) => (
-            <Button
-              key={vendor.name}
-              type="button"
-              variant={vendor.name === selectedVendorName ? "default" : "outline"}
-              size="sm"
-              aria-pressed={vendor.name === selectedVendorName}
-              onClick={() => toggleVendor(vendor.name)}
-            >
-              {vendor.name}
-            </Button>
-          ))}
-        </div>
-
-        {selectedVendor && (
-          <div className="mt-1 flex items-center justify-between gap-3 rounded-md bg-muted px-3 py-2">
-            <p className="text-sm">
-              <span>{selectedVendor.name} 잔여석</span>{" "}
-              <strong>
-                {selectedVendor.remainingSeats > 0 ? `${selectedVendor.remainingSeats}석` : "매진"}
-              </strong>
-            </p>
             <a
-              href={selectedVendor.bookingUrl}
+              key={vendor.name}
+              href={vendor.bookingUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className={cn(buttonVariants({ size: "sm" }))}
+              className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
             >
-              예매하기
+              {vendor.name}
             </a>
-          </div>
-        )}
+          ))}
+        </div>
       </div>
     </article>
   );

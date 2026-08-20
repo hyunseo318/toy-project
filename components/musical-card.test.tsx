@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import { MusicalCard } from "@/components/musical-card";
@@ -16,8 +16,8 @@ const performance: Performance = {
   venueName: "샘플아트센터 대극장",
   venueSize: "대극장",
   vendors: [
-    { name: "인터파크", remainingSeats: 12, bookingUrl: "https://tickets.interpark.com/" },
-    { name: "티켓링크", remainingSeats: 0, bookingUrl: "https://www.ticketlink.co.kr/" },
+    { name: "인터파크", bookingUrl: "https://tickets.interpark.com/" },
+    { name: "티켓링크", bookingUrl: "https://www.ticketlink.co.kr/" },
   ],
 };
 
@@ -35,33 +35,21 @@ describe("MusicalCard", () => {
     expect(screen.getByText("극장: 샘플아트센터 대극장")).toBeInTheDocument();
   });
 
-  it("예매처를 선택하기 전에는 잔여석 정보를 보여주지 않는다", () => {
+  it("잔여석은 어디에도 보여주지 않는다", () => {
     render(<MusicalCard performance={performance} />);
 
     expect(screen.queryByText(/잔여석/)).not.toBeInTheDocument();
   });
 
-  it("예매처를 선택하면 그 예매처의 잔여석과 예매하기 링크가 나타난다", () => {
+  it("예매처는 그 예매처의 실제 예매 페이지로 바로 연결되는 링크다", () => {
     render(<MusicalCard performance={performance} />);
 
-    fireEvent.click(screen.getByRole("button", { name: "인터파크" }));
+    const interparkLink = screen.getByRole("link", { name: "인터파크" });
+    expect(interparkLink).toHaveAttribute("href", "https://tickets.interpark.com/");
+    expect(interparkLink).toHaveAttribute("target", "_blank");
+    expect(interparkLink).toHaveAttribute("rel", "noopener noreferrer");
 
-    expect(screen.getByText("인터파크 잔여석")).toBeInTheDocument();
-    expect(screen.getByText("12석")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "예매하기" })).toHaveAttribute(
-      "href",
-      "https://tickets.interpark.com/"
-    );
-  });
-
-  it("다른 예매처를 선택하면 이전 예매처의 잔여석은 사라지고 새 예매처의 잔여석만 보인다", () => {
-    render(<MusicalCard performance={performance} />);
-
-    fireEvent.click(screen.getByRole("button", { name: "인터파크" }));
-    fireEvent.click(screen.getByRole("button", { name: "티켓링크" }));
-
-    expect(screen.queryByText("인터파크 잔여석")).not.toBeInTheDocument();
-    expect(screen.getByText("티켓링크 잔여석")).toBeInTheDocument();
-    expect(screen.getByText("매진")).toBeInTheDocument();
+    const ticketlinkLink = screen.getByRole("link", { name: "티켓링크" });
+    expect(ticketlinkLink).toHaveAttribute("href", "https://www.ticketlink.co.kr/");
   });
 });
