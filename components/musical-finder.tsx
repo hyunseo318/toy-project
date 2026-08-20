@@ -69,7 +69,7 @@ export function MusicalFinder() {
   const highlightedDateKeys = getDateKeysWithPerformances();
 
   const header = (
-    <div>
+    <div className="w-full">
       <h1 className="text-2xl font-semibold">날짜로 뮤지컬 찾기</h1>
       <p className="mt-1 text-sm text-muted-foreground">
         날짜를 선택하면 그날 볼 수 있는 뮤지컬을 예매처와 함께 모아 보여줍니다.
@@ -79,7 +79,7 @@ export function MusicalFinder() {
 
   if (selectedDateKey === null) {
     return (
-      <div className="flex w-full flex-col items-center gap-6 px-4 py-10 sm:items-start sm:px-8">
+      <div className="mx-auto flex w-full max-w-2xl flex-col items-center gap-6 px-4 py-10">
         {header}
         <p className="text-sm text-muted-foreground" role="status">
           달력을 불러오는 중입니다…
@@ -97,7 +97,7 @@ export function MusicalFinder() {
   );
 
   return (
-    <div className="flex w-full flex-col items-center gap-6 px-4 py-10 sm:items-start sm:px-8">
+    <div className="mx-auto flex w-full max-w-2xl flex-col items-center gap-6 px-4 py-10">
       {header}
 
       <CalendarPicker
@@ -108,7 +108,7 @@ export function MusicalFinder() {
 
       <VenueFilter selectedVenueSize={selectedVenueSize} onSelectVenueSize={setSelectedVenueSize} />
 
-      <div className="w-full max-w-2xl">
+      <div className="w-full">
         <MusicalList performances={performances} emptyMessage={emptyMessage} />
       </div>
     </div>
