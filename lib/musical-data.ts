@@ -9,13 +9,13 @@
  *
  * 각 플랫폼이 캐스팅을 공개해 둔 마지막 날짜까지만 데이터가 있다(조사 시점으로
  * 부터 열흘 안팎). 그 뒤 날짜나 월요일(대부분 공연이 쉬는 날)에는 그 공연을
- * 리스트에 넣지 않는다. 잔여석 숫자만큼은 실시간으로 가져올 방법이 없어 예시
- * 값으로 남아 있다. docs/specs/musical-list-by-date/spec.md의 "남은 위험" 참고.
+ * 리스트에 넣지 않는다. 잔여석은 실시간으로 가져올 방법이 없어 아예 표시하지
+ * 않고, 예매처를 누르면 바로 그 예매처의 실제 예매 페이지로 연결한다.
+ * docs/specs/musical-list-by-date/spec.md의 "남은 위험" 참고.
  */
 
 export type Vendor = {
   name: string;
-  remainingSeats: number;
   bookingUrl: string;
 };
 
@@ -73,12 +73,10 @@ const SHOW_META: Record<ShowId, ShowMeta> = {
     vendors: [
       {
         name: "인터파크",
-        remainingSeats: 24,
         bookingUrl: "https://tickets.interpark.com/contents/bridge/26007416",
       },
       {
         name: "예스24",
-        remainingSeats: 9,
         bookingUrl: "https://m.ticket.yes24.com/Perf/58563",
       },
     ],
@@ -93,12 +91,10 @@ const SHOW_META: Record<ShowId, ShowMeta> = {
     vendors: [
       {
         name: "인터파크",
-        remainingSeats: 0,
         bookingUrl: "https://tickets.interpark.com/goods/26007442",
       },
       {
         name: "예스24",
-        remainingSeats: 17,
         bookingUrl: "https://m.ticket.yes24.com/Perf/58543",
       },
     ],
@@ -113,7 +109,6 @@ const SHOW_META: Record<ShowId, ShowMeta> = {
     vendors: [
       {
         name: "인터파크",
-        remainingSeats: 31,
         bookingUrl: "https://tickets.interpark.com/contents/bridge/26009314",
       },
     ],
@@ -128,7 +123,6 @@ const SHOW_META: Record<ShowId, ShowMeta> = {
     vendors: [
       {
         name: "인터파크",
-        remainingSeats: 14,
         bookingUrl: "https://tickets.interpark.com/goods/L0000142",
       },
     ],
@@ -143,12 +137,10 @@ const SHOW_META: Record<ShowId, ShowMeta> = {
     vendors: [
       {
         name: "인터파크",
-        remainingSeats: 6,
         bookingUrl: "https://tickets.interpark.com/goods/26007169",
       },
       {
         name: "예스24",
-        remainingSeats: 12,
         bookingUrl: "https://ticket.yes24.com/Perf/58477?Gcode=009_403",
       },
     ],
@@ -163,12 +155,10 @@ const SHOW_META: Record<ShowId, ShowMeta> = {
     vendors: [
       {
         name: "인터파크",
-        remainingSeats: 4,
         bookingUrl: "https://tickets.interpark.com/goods/26006325",
       },
       {
         name: "예스24",
-        remainingSeats: 8,
         bookingUrl: "https://ticket.yes24.com/Perf/58289",
       },
     ],
@@ -183,7 +173,6 @@ const SHOW_META: Record<ShowId, ShowMeta> = {
     vendors: [
       {
         name: "인터파크",
-        remainingSeats: 3,
         bookingUrl: "https://tickets.interpark.com/goods/26006228",
       },
     ],
@@ -198,7 +187,6 @@ const SHOW_META: Record<ShowId, ShowMeta> = {
     vendors: [
       {
         name: "인터파크",
-        remainingSeats: 10,
         bookingUrl: "https://tickets.interpark.com/goods/26005310",
       },
     ],

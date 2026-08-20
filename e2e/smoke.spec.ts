@@ -9,7 +9,7 @@ test("홈 화면이 열리고 제목과 안내가 보인다", async ({ page }) =
   );
 });
 
-test("날짜를 선택하면 그날 공연 중인 뮤지컬 리스트가 나타나고, 예매처를 고르면 잔여석과 예매하기 링크가 보인다", async ({
+test("날짜를 선택하면 그날 공연 중인 뮤지컬 리스트가 나타나고, 예매처를 누르면 실제 예매 페이지로 바로 연결된다", async ({
   page,
 }) => {
   // 여러 공연이 겹치는 날짜(2026-08-20)로 시각을 고정해, 실제 실행 시점과
@@ -28,16 +28,12 @@ test("날짜를 선택하면 그날 공연 중인 뮤지컬 리스트가 나타�
   ).toBeVisible();
   await expect(frozenCard.getByText("극장: 샤롯데씨어터")).toBeVisible();
 
-  // 예매처를 선택하기 전에는 잔여석 정보가 보이지 않는다.
+  // 잔여석은 어디에도 나오지 않는다.
   await expect(frozenCard.getByText("잔여석")).toHaveCount(0);
-
-  await frozenCard.getByRole("button", { name: "인터파크" }).click();
-  await expect(frozenCard.getByText("인터파크 잔여석")).toBeVisible();
-  await expect(frozenCard.getByText("24석")).toBeVisible();
 
   const [popup] = await Promise.all([
     page.waitForEvent("popup"),
-    frozenCard.getByRole("link", { name: "예매하기" }).click(),
+    frozenCard.getByRole("link", { name: "인터파크" }).click(),
   ]);
   // interpark.com이 자체적으로 하위 경로를 리다이렉트할 수 있으므로, 도메인
   // 이동 자체(실제 예매처로 새 탭이 열리는지)를 확인한다.

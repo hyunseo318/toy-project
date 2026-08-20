@@ -72,7 +72,7 @@ export function MusicalFinder() {
     <div>
       <h1 className="text-2xl font-semibold">날짜로 뮤지컬 찾기</h1>
       <p className="mt-1 text-sm text-muted-foreground">
-        날짜를 선택하면 그날 볼 수 있는 뮤지컬을 예매처별 잔여석과 함께 모아 보여줍니다.
+        날짜를 선택하면 그날 볼 수 있는 뮤지컬을 예매처와 함께 모아 보여줍니다.
       </p>
     </div>
   );

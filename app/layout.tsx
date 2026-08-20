@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "날짜로 뮤지컬 찾기",
-  description: "달력에서 날짜를 선택해 그날 볼 수 있는 뮤지컬을 예매처별 잔여석과 함께 비교합니다.",
+  description: "달력에서 날짜를 선택해 그날 볼 수 있는 뮤지컬을 예매처와 함께 비교합니다.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
